@@ -2,11 +2,11 @@
 import { faker } from "@faker-js/faker";
 import { User } from "../models/user.model.js";
 import sequelize from "../config/db.js";
-// import dotenv from "dotenv";
 
-// dotenv.config();
 const TOTAL_USERS = 10;
-async function seedUsers(count = TOTAL_USERS) {
+
+// function of seeding Users using faker
+(async (count = TOTAL_USERS) => {
   try {
     await sequelize.sync(); // ensure DB + table exists
 
@@ -27,6 +27,4 @@ async function seedUsers(count = TOTAL_USERS) {
   } finally {
     await sequelize.close();
   }
-}
-
-seedUsers();
+})();
