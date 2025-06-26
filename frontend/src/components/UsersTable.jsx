@@ -2,14 +2,9 @@ import { useEffect, useState, useCallback } from "react";
 import DataTable from "react-data-table-component";
 import { api } from "../api";
 import "./tablecss.css";
+import { FaArrowUp } from "react-icons/fa";
 
-const columns = [
-  { name: "ID", selector: (row) => row.id, sortable: true },
-  { name: "Name", selector: (row) => row.name, sortable: true },
-  { name: "Email", selector: (row) => row.email, sortable: true },
-];
-
-export default function UsersTable() {
+const UsersTable = () => {
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -18,6 +13,11 @@ export default function UsersTable() {
   const [sortField, setSortField] = useState("id");
   const [sortOrder, setSortOrder] = useState("asc");
   const [search, setSearch] = useState("");
+  const columns = [
+    { name: "ID", selector: (row) => row.id, sortable: true },
+    { name: "Name", selector: (row) => row.name, sortable: true },
+    { name: "Email", selector: (row) => row.email, sortable: true },
+  ];
 
   // Debounce search text
   const [query, setQuery] = useState("");
@@ -25,14 +25,6 @@ export default function UsersTable() {
     const id = setTimeout(() => setQuery(search), 300);
     return () => clearTimeout(id);
   }, [search]);
-
-  const customStyles = {
-    rdt_PaginationRowsPerPage: {
-      style: {
-        display: "none", 
-      },
-    },
-  };
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -74,7 +66,9 @@ export default function UsersTable() {
         columns={columns}
         data={data}
         progressPending={loading}
-        customStyles={customStyles}
+        highlightOnHover
+        // customStyles={} // for custom styles
+        sortIcon={<FaArrowUp />}
         pagination
         paginationServer
         // paginationRowsPerPageOptions={[]} // disable other options
@@ -94,8 +88,9 @@ export default function UsersTable() {
           setSortField(key);
           setSortOrder(sortDirection);
         }}
-        highlightOnHover
       />
     </div>
   );
-}
+};
+
+export default UsersTable;
