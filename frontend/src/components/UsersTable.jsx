@@ -26,6 +26,14 @@ export default function UsersTable() {
     return () => clearTimeout(id);
   }, [search]);
 
+  const customStyles = {
+    rdt_PaginationRowsPerPage: {
+      style: {
+        display: "none", 
+      },
+    },
+  };
+
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
@@ -66,6 +74,7 @@ export default function UsersTable() {
         columns={columns}
         data={data}
         progressPending={loading}
+        customStyles={customStyles}
         pagination
         paginationServer
         // paginationRowsPerPageOptions={[]} // disable other options
