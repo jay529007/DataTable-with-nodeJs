@@ -1,0 +1,4 @@
+/* Hide "Rows per page" dropdown */
+.rdt_PaginationRowsPerPage {
+  display: none;
+}
